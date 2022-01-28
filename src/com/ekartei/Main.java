@@ -13,7 +13,7 @@ public class Main {
 			do{
 				System.out.print("\n\n[1] Neuen Freund anlegen \n[2] Daten aendern \n[3] Freund suchen \n[4] Alle anzeigen \n\n");
 				while(!sc.hasNextInt()){
-					System.err.println("\nBitte eine gültige Aktion waehlen.\n");
+					System.err.println("\nBitte eine gültige Aktion waehlenblablabla.\n");
 					sc.next();
 				}
 				input = sc.nextInt();
