@@ -1,7 +1,9 @@
 package com.ekartei.entitaeten;
-
 import java.util.ArrayList;
 
+/**
+ * blablablabla
+ */
 public class Freund {
 	
 	String vorname;
@@ -19,7 +21,6 @@ public class Freund {
 		this.vorname = vorname;
 	}
 
-
 	public String getNachname() {
 		return nachname;
 	}
@@ -27,7 +28,6 @@ public class Freund {
 	public void setNachname(String nachname) {
 		this.nachname = nachname;
 	}
-
 
 	public String getGeburtsdatum() {
 		return geburtsdatum;
@@ -37,7 +37,6 @@ public class Freund {
 		this.geburtsdatum = geburtsdatum;
 	}
 
-	
 	public Integer getID() {
 		return id;
 	}
@@ -45,7 +44,6 @@ public class Freund {
 	public void setID(Integer id) {
 		this.id = id;
 	}
-	
 	
 	public ArrayList<Adresse> getAdressen() {
 		return adressen;
