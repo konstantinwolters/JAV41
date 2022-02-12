@@ -1,9 +1,6 @@
 package com.ekartei.entitaeten;
 import java.util.ArrayList;
 
-/**
- * blablablabla
- */
 public class Freund {
 	
 	String vorname;

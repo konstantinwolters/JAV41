@@ -96,7 +96,12 @@ public class Main {
 		
 		while(true){	
 			//Prüfung, ob Nutzerauswahl gueltig ist (1-4 & Zahl)
-			System.out.print("\n\n[1] Neuen Freund anlegen \n[2] Daten aendern \n[3] Freund loeschen \n[4] Freund suchen \n[5] Alle anzeigen \n[6] Programm beenden\n\n");
+			System.out.print("\n\n[1] Neuen Freund anlegen" 
+							+"\n[2] Daten aendern"
+							+"\n[3] Freund loeschen" 
+							+"\n[4] Freund suchen"
+							+"\n[5] Alle anzeigen"
+							+"\n[6] Programm beenden\n\n");
 			do{
 				while(!sc.hasNextInt()){
 					System.err.println("\nBitte eine gueltige Aktion waehlen.\n");

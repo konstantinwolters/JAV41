@@ -3,7 +3,7 @@ import java.util.*;
 
 public class Kartei {
 	Integer freundCounter = 0;
-	ArrayList<Freund> freunde = new ArrayList<Freund>();
+	private ArrayList<Freund> freunde = new ArrayList<Freund>(); //Zum Speichern der Freunde
 	
 	public void setFreunde (ArrayList<Freund> freunde){
 		this.freunde = freunde;
@@ -32,7 +32,7 @@ public class Kartei {
 		
 		freundCounter++;
 
-		//Abfrage der Adresse/n und Speichern in Arraylist/Freund
+		//Abfrage der Adresse/n und Speichern in Arraylist pro Freund
 		ArrayList<Adresse> adressen = new ArrayList<Adresse>();
 		
 		while(true) {
@@ -64,7 +64,9 @@ public class Kartei {
 			}
 		}
 		
-		System.out.println("\nNutzer wurde angelegt: ID: "+neuerFreund.getID()+" | Name: "+neuerFreund.getVorname()+" "+neuerFreund.getNachname()+" | Geburtsdatum: "+neuerFreund.getGeburtsdatum());
+		System.out.println("\nNutzer wurde angelegt: ID: "+neuerFreund.getID()
+							+" | Name: "+neuerFreund.getVorname()+" "+neuerFreund.getNachname()
+							+" | Geburtsdatum: "+neuerFreund.getGeburtsdatum());
 	}
 
 	
@@ -78,12 +80,14 @@ public class Kartei {
 		Scanner sc = new Scanner(System.in);
 
 		for (Freund freund : freunde) {
-			System.out.println("["+freunde.indexOf(freund)+"] Name: "+freund.getVorname()+" "+freund.getNachname()+" | Geburtsdatum: "+freund.getGeburtsdatum());
+			System.out.println("["+freunde.indexOf(freund)
+								+"] Name: "+freund.getVorname()+" "+freund.getNachname()
+								+" | Geburtsdatum: "+freund.getGeburtsdatum());
 		}
 		
 		System.out.println("\nWelcher Datensatz soll geaendert werden?");
 
-		//Pruefen, ob Auswahl ausserhalb der Arraylist liegt
+		//Pruefung, ob Eingabe Integer ist und ob innerhalb der Arraylist liegt
 		do{
 			while(!sc.hasNextInt()){
 				System.err.println("\nBitte eine gueltigen Datensatz waehlen.");
@@ -96,9 +100,14 @@ public class Kartei {
 		
 		while(true){
 			
-			System.out.println("\n[1] Vornamen aendern\n[2] Nachnamen aendern\n[3] Geburtsdatum aendern\n[4] Adresse aendern\n[5] Adresse hinzufuegen\n[6] zurueck zum Hauptmenue");
+			System.out.println("\n[1] Vornamen aendern2"+
+								"\n[2] Nachnamen aendern"+
+								"\n[3] Geburtsdatum aendern"+
+								"\n[4] Adresse aendern"+
+								"\n[5] Adresse hinzufuegen"+
+								"\n[6] zurueck zum Hauptmenue");
 			
-			//Pruefen, ob Auswahl ausserhalb der Arraylist liegt
+			//Pruefung, ob Eingabe Integer ist und ob innerhalb der Arraylist liegt
 			do{
 				while(!sc.hasNextInt()){
 					System.err.println("\nBitte eine gueltige Aktion waehlen.");
@@ -128,6 +137,8 @@ public class Kartei {
 				}
 
 				System.out.println("\nWelche Adresse soll geaendert werden?");
+
+				//Pruefung, ob Eingabe Integer ist und ob innerhalb der Arraylist liegt
 				do{
 					while(!sc.hasNextInt()){
 						System.err.println("\nBitte eine gueltige Adresse waehlen.");
@@ -178,7 +189,9 @@ public class Kartei {
 		Scanner sc = new Scanner(System.in);
 
 		for (Freund freund : freunde) {
-			System.out.println("["+freunde.indexOf(freund)+"] Name: "+freund.getVorname()+" "+freund.getNachname()+" | Geburtsdatum: "+freund.getGeburtsdatum());
+			System.out.println("["+freunde.indexOf(freund)
+								+"] Name: "+freund.getVorname()+" "+freund.getNachname()
+								+" | Geburtsdatum: "+freund.getGeburtsdatum());
 		}
 
 		System.out.println("\nWelcher Datensatz soll geloescht werden?");
@@ -205,12 +218,17 @@ public class Kartei {
 		suchwort = sc.next();
 
 		for (Freund freund : freunde) {
-			if(freund.nachname.equalsIgnoreCase(suchwort) || freund.vorname.equalsIgnoreCase(suchwort)||freund.id.toString().equalsIgnoreCase(suchwort) || freund.geburtsdatum.equalsIgnoreCase(suchwort)){
+			if(freund.nachname.equalsIgnoreCase(suchwort) 
+				|| freund.vorname.equalsIgnoreCase(suchwort)
+				||freund.id.toString().equalsIgnoreCase(suchwort) 
+				|| freund.geburtsdatum.equalsIgnoreCase(suchwort)){
 				suchergebnisse.add(freund);
 			}
 			
 			for (Adresse adresse : freund.adressen) {
-				if(adresse.ort.equalsIgnoreCase(suchwort) || adresse.str.equalsIgnoreCase(suchwort) || adresse.plz.equalsIgnoreCase(suchwort)){
+				if(adresse.ort.equalsIgnoreCase(suchwort) 
+					|| adresse.str.equalsIgnoreCase(suchwort) 
+					|| adresse.plz.equalsIgnoreCase(suchwort)){
 					suchergebnisse.add(freund);
 				}
 			}
@@ -224,11 +242,16 @@ public class Kartei {
 		for (Freund freund : suchergebnisse) {
 			System.out.println("____________________________________________________________________");
 			System.out.println("\nID: "+freund.getID());
-			System.out.println("Name: "+freund.getVorname()+" "+freund.getNachname()+" | Geburtsdatum: "+freund.getGeburtsdatum());
+			System.out.println("Name: "+freund.getVorname()+" "
+								+freund.getNachname()
+								+" | Geburtsdatum: "
+								+freund.getGeburtsdatum());
 			System.out.println("\n  Adresse/n:\n ");
 			
 			for (Adresse adresse : freund.adressen) {
-				System.out.println("  ["+freund.adressen.indexOf(adresse)+1+"]"+"Strasse: "+adresse.str+" | Ort: "+adresse.plz+" "+adresse.ort);
+				System.out.println("  ["+freund.adressen.indexOf(adresse)+1+"]"
+									+"Strasse: "+adresse.str
+									+" | Ort: "+adresse.plz+" "+adresse.ort);
 			}
 		}
 	}
@@ -241,11 +264,13 @@ public class Kartei {
 		for (Freund freund : freunde) {
 			System.out.println("____________________________________________________________________");
 			System.out.println("\nID: "+freund.getID());
-			System.out.println("Name: "+freund.getVorname()+" "+freund.getNachname()+" | Geburtsdatum: "+freund.getGeburtsdatum());
+			System.out.println("Name: "+freund.getVorname()+" "+freund.getNachname()
+								+" | Geburtsdatum: "+freund.getGeburtsdatum());
 			System.out.println("\n  Adresse/n:\n ");
 			
 			for (Adresse adresse : freund.adressen) {
-				System.out.println("  ["+freund.adressen.indexOf(adresse)+1+"]"+"Strasse: "+adresse.str+" | Ort: "+adresse.plz+" "+adresse.ort);
+				System.out.println("  ["+freund.adressen.indexOf(adresse)+1+"]"
+									+"Strasse: "+adresse.str+" | Ort: "+adresse.plz+" "+adresse.ort);
 			}
 		}
 	}
