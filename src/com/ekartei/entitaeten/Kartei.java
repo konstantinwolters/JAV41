@@ -2,233 +2,115 @@ package com.ekartei.entitaeten;
 import java.util.*;
 
 public class Kartei {
-	Integer freundCounter = 0;
+	private Integer freundSchluessel = 0;
 	private ArrayList<Freund> freunde = new ArrayList<Freund>(); //Zum Speichern der Freunde
 	
-	public void setFreunde (ArrayList<Freund> freunde){
-		this.freunde = freunde;
-	}
-	
-	public void anlegen() {
 		
-		Freund neuerFreund = new Freund();
+	public void freundAnlegen(String vorname, String nachname, String geburtsdatum, String strasse, String ort, String postleitzahl) {
+		
+		Freund neuerFreund = new Freund(vorname, nachname, geburtsdatum, freundSchluessel, strasse, ort, postleitzahl);
 		freunde.add(neuerFreund);
-		
-		Scanner sc = new Scanner(System.in);
-
-		System.out.println("\nVorname: ");
-		String input = sc.nextLine();
-		neuerFreund.setVorname(input);
-		
-		System.out.println("\nNachname: ");
-		input = sc.nextLine();
-		neuerFreund.setNachname(input);
-		
-		System.out.println("\nGeburtsdatum:");
-		input = sc.nextLine();
-		neuerFreund.setGeburtsdatum(input);
-		
-		neuerFreund.setID(freundCounter + 1);
-		
-		freundCounter++;
-
-		//Abfrage der Adresse/n und Speichern in Arraylist pro Freund
-		ArrayList<Adresse> adressen = new ArrayList<Adresse>();
-		
-		while(true) {
-			Adresse neueAdresse = new Adresse();
-			adressen.add(neueAdresse);
-			
-			System.out.println("\nStrasse und Hausnr.: ");
-			input = sc.nextLine();
-			neueAdresse.setStr(input);
-			
-			System.out.println("\nPostleitzahl: ");
-			input = sc.nextLine();
-			neueAdresse.setPlz(input);
-			
-			System.out.println("\nOrt: ");
-			input = sc.nextLine();
-			neueAdresse.setOrt(input);
-			
-			//Abfrage, ob weitere Adresse angelegt werden soll									
-			input = sc.nextLine();
-			while( !input.equalsIgnoreCase("j") && !input.equalsIgnoreCase("n") ){
-				System.out.println("\nSoll eine weitere Adresse angelegt werden? (j/n)");
-				input = sc.nextLine();
-			}
-
-			if (input.equals("n")) {
-				neuerFreund.setAdressen(adressen);
-				break;			
-			}
-		}
-		
-		System.out.println("\nNutzer wurde angelegt: ID: "+neuerFreund.getID()
-							+" | Name: "+neuerFreund.getVorname()+" "+neuerFreund.getNachname()
-							+" | Geburtsdatum: "+neuerFreund.getGeburtsdatum());
+		freundSchluessel++;
 	}
 
 	
-	public void aendern() {
-		int auswahlDatensatz;
-		int auswahlMenueAendern;
-		int auswahlAdresse;
-		String neuerEintrag;
-		Freund freundAendern;
+	public void freundAendern(Integer schluesselFreund, String vorname, String nachname, String geburtsdatum) {
 
-		Scanner sc = new Scanner(System.in);
-
+		Freund freundGefunden = null;
 		for (Freund freund : freunde) {
-			System.out.println("["+freunde.indexOf(freund)
-								+"] Name: "+freund.getVorname()+" "+freund.getNachname()
-								+" | Geburtsdatum: "+freund.getGeburtsdatum());
+			if(freund.getSchluessel() == schluesselFreund){
+				freundGefunden = freund;
+			}
+		}
+
+		if(freundGefunden == null){
+			System.out.println("Freund nicht gefunden.");
+			return;
 		}
 		
-		System.out.println("\nWelcher Datensatz soll geaendert werden?");
+		freundGefunden.setVorname(vorname);
+		freundGefunden.setNachname(nachname);
+		freundGefunden.setGeburtsdatum(geburtsdatum);
 
-		//Pruefung, ob Eingabe Integer ist und ob innerhalb der Arraylist liegt
-		do{
-			while(!sc.hasNextInt()){
-				System.err.println("\nBitte eine gueltigen Datensatz waehlen.");
-				sc.next();
-			}
-			auswahlDatensatz = sc.nextInt();
-		}while(auswahlDatensatz < 0 || auswahlDatensatz > freunde.size()-1);
-
-		freundAendern = freunde.get(auswahlDatensatz);
-		
-		while(true){
-			
-			System.out.println("\n[1] Vornamen aendern"+
-								"\n[2] Nachnamen aendern"+
-								"\n[3] Geburtsdatum aendern"+
-								"\n[4] Adresse aendern"+
-								"\n[5] Adresse hinzufuegen"+
-								"\n[6] zurueck zum Hauptmenue");
-			
-			//Pruefung, ob Eingabe Integer ist und ob innerhalb der Arraylist liegt
-			do{
-				while(!sc.hasNextInt()){
-					System.err.println("\nBitte eine gueltige Aktion waehlen.");
-					sc.next();
-				}
-				auswahlMenueAendern = sc.nextInt();
-			}while(auswahlMenueAendern <= 0 || auswahlMenueAendern > 6);
-
-			if(auswahlMenueAendern == 1){
-				System.out.println("\nNeuer Vorname:");
-				neuerEintrag = sc.next();
-				freundAendern.setVorname(neuerEintrag);
-
-			}else if(auswahlMenueAendern == 2){
-				System.out.println("\nNeuer Nachname:");
-				neuerEintrag = sc.next();
-				freundAendern.setNachname(neuerEintrag);
-				
-			}else if(auswahlMenueAendern == 3){
-				System.out.println("\nNeues Geburtsdatum:");
-				neuerEintrag = sc.next();
-				freundAendern.setGeburtsdatum(neuerEintrag);
-
-			}else if(auswahlMenueAendern == 4){
-				for (Adresse adresse : freundAendern.adressen) {
-					System.err.println("["+freundAendern.adressen.indexOf(adresse)+"] "+adresse.str+" "+adresse.plz+" "+adresse.ort);
-				}
-
-				System.out.println("\nWelche Adresse soll geaendert werden?");
-
-				//Pruefung, ob Eingabe Integer ist und ob innerhalb der Arraylist liegt
-				do{
-					while(!sc.hasNextInt()){
-						System.err.println("\nBitte eine gueltige Adresse waehlen.");
-						sc.nextInt();
-					}
-					auswahlAdresse = sc.nextInt();
-				}while(auswahlAdresse < 0 || auswahlAdresse > freundAendern.adressen.size()-1);
-
-					System.out.println("\nNeue Strasse und Hausnr.:");
-					sc.nextLine();
-					neuerEintrag = sc.nextLine();
-					freundAendern.adressen.get(auswahlAdresse).setStr(neuerEintrag);
-
-					System.out.println("\nNeue Postleitzahl:");
-					neuerEintrag = sc.nextLine();
-					freundAendern.adressen.get(auswahlAdresse).setPlz(neuerEintrag);
-
-					System.out.println("\nNeuer Ort:");
-					neuerEintrag = sc.nextLine();
-					freundAendern.adressen.get(auswahlAdresse).setOrt(neuerEintrag);
-
-			}else if(auswahlMenueAendern == 5){
-				Adresse neueAdresse = new Adresse();
-				freundAendern.adressen.add(neueAdresse);
-				
-				System.out.println("\nStrasse und Hausnr.: ");
-				sc.nextLine();
-				neuerEintrag = sc.nextLine();
-				neueAdresse.setStr(neuerEintrag);
-				
-				System.out.println("\nPostleitzahl: ");
-				neuerEintrag = sc.nextLine();
-				neueAdresse.setPlz(neuerEintrag);
-				
-				System.out.println("\nOrt: ");
-				neuerEintrag = sc.nextLine();
-				neueAdresse.setOrt(neuerEintrag);
-			}else if(auswahlMenueAendern == 6){
-				break;
-			}
-		}	
 	}
 	
+	public void adresseAendern (Integer schluesselFreund, Integer indexAdresse, String strasse, String postleitzahl, String ort){
 
-	public void loeschen(){
-
-		int auswahlDatensatz;
-		Scanner sc = new Scanner(System.in);
-
+		Freund freundGefunden = null;
 		for (Freund freund : freunde) {
-			System.out.println("["+freunde.indexOf(freund)
-								+"] Name: "+freund.getVorname()+" "+freund.getNachname()
-								+" | Geburtsdatum: "+freund.getGeburtsdatum());
+			if(freund.getSchluessel() == schluesselFreund){
+				freundGefunden = freund;
+			}
 		}
 
-		System.out.println("\nWelcher Datensatz soll geloescht werden?");
+		if(freundGefunden == null){
+			System.out.println("Freund nicht gefunden.");
+			return;
+		}
 
-		//Pruefen, ob Auswahl ausserhalb der Arraylist liegt
-		do{
-			while(!sc.hasNextInt()){
-				System.err.println("\nBitte eine gueltigen Datensatz waehlen.");
-				sc.next();
+		if(indexAdresse < 0 || indexAdresse + 1 > freundGefunden.getAdressen().size()){
+			System.out.println("Index Adresse ungueltig.");
+			return;
+		}
+
+		freundGefunden.getAdressen().get(indexAdresse).setStrasse(strasse);
+		freundGefunden.getAdressen().get(indexAdresse).setPostleitzahl(postleitzahl);
+		freundGefunden.getAdressen().get(indexAdresse).setOrt(ort);
+
+	}
+
+	public void neueAdresse(Integer schluesselFreund, String strasse, String postleitzahl, String ort){
+		
+		Freund freundGefunden = null;
+		for (Freund freund : freunde) {
+			if(freund.getSchluessel() == schluesselFreund){
+				freundGefunden = freund;
 			}
-			auswahlDatensatz = sc.nextInt();
-		}while(auswahlDatensatz < 0 || auswahlDatensatz > freunde.size()-1);
+		}
 
-		freunde.remove(auswahlDatensatz);
+		if(freundGefunden == null){
+			System.out.println("Freund nicht gefunden.");
+			return;
+		}
+
+		Adresse neueAdresse = new Adresse(strasse, postleitzahl, ort);
+		freundGefunden.getAdressen().add(neueAdresse);
+	}
+
+	public void freundLoeschen(Integer schluesselFreund){
+
+		Freund freundGefunden = null;
+		for (Freund freund : freunde) {
+			if(freund.getSchluessel() == schluesselFreund){
+				freundGefunden = freund;
+			}
+		}
+
+		if(freundGefunden == null){
+			System.out.println("Freund nicht gefunden.");
+			return;
+		}
+			
+		freunde.remove(freundGefunden);
 	}
 
 
-	public void suchen() {
-		String suchwort;
+	public void freundSuchen(String suchwort) {
+		
 		ArrayList<Freund> suchergebnisse = new ArrayList<Freund>();
 		
-		Scanner sc = new Scanner(System.in);
-		System.out.println("\nSuche:");
-		suchwort = sc.next();
-
 		for (Freund freund : freunde) {
-			if(freund.nachname.equalsIgnoreCase(suchwort) 
-				|| freund.vorname.equalsIgnoreCase(suchwort)
-				||freund.id.toString().equalsIgnoreCase(suchwort) 
-				|| freund.geburtsdatum.equalsIgnoreCase(suchwort)){
+			if(freund.getNachname().equalsIgnoreCase(suchwort) 
+				|| freund.getVorname().equalsIgnoreCase(suchwort)
+				|| freund.getSchluessel().toString().equalsIgnoreCase(suchwort) 
+				|| freund.getGeburtsdatum().equalsIgnoreCase(suchwort)){
 				suchergebnisse.add(freund);
 			}
 			
-			for (Adresse adresse : freund.adressen) {
-				if(adresse.ort.equalsIgnoreCase(suchwort) 
-					|| adresse.str.equalsIgnoreCase(suchwort) 
-					|| adresse.plz.equalsIgnoreCase(suchwort)){
+			for (Adresse adresse : freund.getAdressen()) {
+				if(adresse.getOrt().equalsIgnoreCase(suchwort) 
+					|| adresse.getStrasse().equalsIgnoreCase(suchwort) 
+					|| adresse.getPostleitzahl().equalsIgnoreCase(suchwort)){
 					suchergebnisse.add(freund);
 				}
 			}
@@ -241,36 +123,38 @@ public class Kartei {
 
 		for (Freund freund : suchergebnisse) {
 			System.out.println("____________________________________________________________________");
-			System.out.println("\nID: "+freund.getID());
-			System.out.println("Name: "+freund.getVorname()+" "
-								+freund.getNachname()
+			System.out.println("\nID: "+freund.getSchluessel()
+								+" | Name: "+freund.getVorname()+" "+freund.getNachname()
 								+" | Geburtsdatum: "
 								+freund.getGeburtsdatum());
 			System.out.println("\n  Adresse/n:\n ");
 			
-			for (Adresse adresse : freund.adressen) {
-				System.out.println("  ["+freund.adressen.indexOf(adresse)+1+"]"
-									+"Strasse: "+adresse.str
-									+" | Ort: "+adresse.plz+" "+adresse.ort);
+			for (Adresse adresse : freund.getAdressen()) {
+				System.out.println("	Strasse: "+adresse.getStrasse()
+									+" | Ort: "+adresse.getPostleitzahl()+" "+adresse.getOrt());
 			}
 		}
 	}
 
 
-	public void alleAnzeigen() {
+	public void anzahlFreunde(){
 
-		System.out.println("\nAnzahl Freunde: "+freunde.size());
+		System.out.println("Anzahl Freunde: " + freunde.size());
+	}
+
+
+	public void adressenAusgeben() {
 
 		for (Freund freund : freunde) {
 			System.out.println("____________________________________________________________________");
-			System.out.println("\nID: "+freund.getID());
-			System.out.println("Name: "+freund.getVorname()+" "+freund.getNachname()
+			System.out.println("\nID: "+freund.getSchluessel()
+								+" | Name: "+freund.getVorname()+" "+freund.getNachname()
 								+" | Geburtsdatum: "+freund.getGeburtsdatum());
 			System.out.println("\n  Adresse/n:\n ");
 			
-			for (Adresse adresse : freund.adressen) {
-				System.out.println("  ["+freund.adressen.indexOf(adresse)+1+"]"
-									+"Strasse: "+adresse.str+" | Ort: "+adresse.plz+" "+adresse.ort);
+			for (Adresse adresse : freund.getAdressen()) {
+				System.out.println("	Strasse: "+adresse.getStrasse()
+									+" | Ort: "+adresse.getPostleitzahl()+" "+adresse.getOrt());
 			}
 		}
 	}

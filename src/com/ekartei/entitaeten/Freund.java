@@ -3,12 +3,21 @@ import java.util.ArrayList;
 
 public class Freund {
 	
-	String vorname;
-	String nachname;
-	String geburtsdatum;
-	Integer id;
-	ArrayList<Adresse> adressen;
+	private String vorname;
+	private String nachname;
+	private String geburtsdatum;
+	private Integer schluessel;
+	private ArrayList<Adresse> adressen = new ArrayList<Adresse>();
 	
+	public Freund(String vorname, String nachname, String geburtsdatum, Integer schluessel, String strasse, String postleitzahl, String ort){
+		this.vorname = vorname;
+		this.nachname = nachname;
+		this.geburtsdatum = geburtsdatum;
+		this.schluessel = schluessel;
+		
+		Adresse ersteAdresse = new Adresse(strasse, postleitzahl, ort);
+		adressen.add(ersteAdresse);
+	}
 	
 	public String getVorname() {
 		return vorname;
@@ -34,12 +43,12 @@ public class Freund {
 		this.geburtsdatum = geburtsdatum;
 	}
 
-	public Integer getID() {
-		return id;
+	public Integer getSchluessel() {
+		return schluessel;
 	}
 
-	public void setID(Integer id) {
-		this.id = id;
+	public void setSchluessel(Integer schluessel) {
+		this.schluessel = schluessel;
 	}
 	
 	public ArrayList<Adresse> getAdressen() {
@@ -50,5 +59,11 @@ public class Freund {
 		this.adressen = adressen;
 	}
 
+	public void neueAdresse (String strasse, String postleitzahl, String ort){
+
+		Adresse neueAdresse = new Adresse(strasse, postleitzahl, ort);
+		adressen.add(neueAdresse);
+
+	}
 
 }

@@ -1,17 +1,22 @@
 package com.ekartei.entitaeten;
 
 public class Adresse {
-	String str;
-	String ort;
-	String plz;
-		
+	private String strasse;
+	private String ort;
+	private String postleitzahl;
 	
-	public String getStr() {
-		return str;
+	public Adresse (String strasse, String postleitzahl, String ort){
+		this.strasse = strasse;
+		this. postleitzahl = postleitzahl;
+		this.ort = ort;
+	}
+	
+	public String getStrasse() {
+		return strasse;
 	}
 
-	public void setStr(String str) {
-	this.str = str;
+	public void setStrasse(String strasse) {
+	this.strasse = strasse;
 	}
 
 	public String getOrt() {
@@ -22,12 +27,12 @@ public class Adresse {
 		this.ort = ort;
 	}
 
-	public String getPlz() {
-		return plz;
+	public String getPostleitzahl() {
+		return postleitzahl;
 	}
 
-	public void setPlz(String plz) {
-		this.plz = plz;
+	public void setPostleitzahl(String postleitzahl) {
+		this.postleitzahl = postleitzahl;
 	}
 
 	
