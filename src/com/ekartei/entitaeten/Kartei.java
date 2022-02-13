@@ -100,7 +100,7 @@ public class Kartei {
 		
 		while(true){
 			
-			System.out.println("\n[1] Vornamen aendern2"+
+			System.out.println("\n[1] Vornamen aendern"+
 								"\n[2] Nachnamen aendern"+
 								"\n[3] Geburtsdatum aendern"+
 								"\n[4] Adresse aendern"+
